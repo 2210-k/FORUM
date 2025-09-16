@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urban RolePlay Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #1a1f2d;
+            --secondary: #252b3b;
+            --accent: #58a6ff;
+            --danger: #da3633;
+            --success: #238636;
+            --text: #c9d1d9;
+            --border: #30363d;
+            --card-bg: #21262d;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            padding: 20px 0;
+            border-bottom: 2px solid var(--accent);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        h1 {
+            color: var(--accent);
+            font-size: 2.2rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+            border-bottom: 2px solid var(--border);
+            flex-wrap: wrap;
+        }
+        
+        .nav-tabs li {
+            margin: 0 5px;
+        }
+        
+        .tab-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            padding: 12px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px 5px 0 0;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .tab-btn:hover {
+            background-color: rgba(88, 166, 255, 0.1);
+        }
+        
+        .tab-btn.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            background-color: var(--secondary);
+        }
+        
+        .tab-content {
+            display: none;
+            padding: 20px;
+            background-color: var(--secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-top: -1px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .callout-box {
+            background-color: var(--danger);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(218, 54, 51, 0.3);
+        }
+        
+        .call-info {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .btn-accept {
+            background-color: var(--success);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            display: block;
+            width: 100%;
+            margin-top: 15px;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+        
+        .btn-accept:hover {
+            background-color: #2ea043;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(35, 134, 54, 0.3);
+        }
+        
+        .history-section {
+            margin-top: 30px;
+        }
+        
+        .history-item {
+            background-color: var(--card-bg);
+            padding: 12px;
+            border-radius: 6px;
+            margin: 8px 0;
+            border-left: 3px solid var(--accent);
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .active-call {
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timer-info {
+            font-size: 16px;
+            color: var(--accent);
+            margin-top: 10px;
+            text-align: center;
+            padding: 10px;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            font-weight: bold;
+        }
+        
+        .job-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .status-badge {
+            background-color: var(--accent);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--success);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            display: none;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                width: 100%;
+                border-radius: 5px;
+                margin-bottom: 5px;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <h1><i class="fas fa-city"></i>RP-ГОРОД. Форум</h1>
+            <div class="user-info">
+                <div class="user-avatar">RP</div>
+                <span>Игрок: <strong>00001. Администратор</strong></span>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <ul class="nav-tabs">
+            <li><button class="tab-btn active" onclick="openTab('tab-contracts')"><i class="fas fa-truck"></i> Дальнобойщик</button></li>
+            <li><button class="tab-btn" onclick="openTab('tab-ems')"><i class="fas fa-ambulance"></i> ЕСС (СМП)</button></li>
+            <li><button class="tab-btn" onclick="openTab('tab-mchs')"><i class="fas fa-fire-extinguisher"></i> ЕСС (МЧС)</button></li>
+        </ul>
+
+        <!-- ВКЛАДКА 1: ДАЛЬНОБОЙЩИК -->
+        <div id="tab-contracts" class="tab-content active">
+            <h2><i class="fas fa-truck-moving job-icon"></i> Контракты на перевозку</h2>
+            <p>Система управления грузоперевозками. Выберите доступный контракт для выполнения.</p>
+            
+            <div class="timer-info">
+                <i class="fas fa-sync-alt"></i> Новые контракты появляются каждые 10-15 минут
+            </div>
+            
+            <div class="grid-container">
+                <div class="card">
+                    <h3>Контракт #A4572</h3>
+                    <p><strong>Маршрут:</strong> Москва → Санкт-Петербург</p>
+                    <p><strong>Груз:</strong> Электроника</p>
+                    <p><strong>Срок:</strong> 2 дня</p>
+                    <p><strong>Оплата:</strong> 25,000 руб.</p>
+                    <button class="btn-accept">ПРИНЯТЬ КОНТРАКТ</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Контракт #B8913</h3>
+                    <p><strong>Маршрут:</strong> Новосибирск → Омск</p>
+                    <p><strong>Груз:</strong> Продукты питания</p>
+                    <p><strong>Срок:</strong> 1 день</p>
+                    <p><strong>Оплата:</strong> 18,500 руб.</p>
+                    <button class="btn-accept">ПРИНЯТЬ КОНТРАКТ</button>
+                </div>
+                
+                <div class="card">
+                    <h3>Контракт #C6421</h3>
+                    <p><strong>Маршрут:</strong> Екатеринбург → Челябинск</p>
+                    <p><strong>Груз:</strong> Строительные материалы</p>
+                    <p><strong>Срок:</strong> 1 день</p>
+                    <p><strong>Оплата:</strong> 15,000 руб.</p>
+                    <button class="btn-accept">ПРИНЯТЬ КОНТРАКТ</button>
+                </div>
+            </div>
+            
+            <div class="history-section">
+                <h3><i class="fas fa-history"></i> История контрактов</h3>
+                <div id="contracts-history">
+                    <div class="history-item">
+                        <span>Контракт #A3128 - Москва → Казань (22.05.2023)</span>
+                        <span class="status-badge">Завершен</span>
+                    </div>
+                    <div class="history-item">
+                        <span>Контракт #B6712 - Краснодар → Ростов-на-Дону (20.05.2023)</span>
+                        <span class="status-badge">Завершен</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 2: ЕСС (СМП) -->
+        <div id="tab-ems" class="tab-content">
+            <h2><i class="fas fa-ambulance job-icon"></i> Служба скорой медицинской помощи</h2>
+            <p>Система приема и обработки вызовов скорой медицинской помощи.</p>
+            
+            <div class="timer-info">
+                <i class="fas fa-clock"></i> Следующий вызов СМП поступит через: <span id="ems-timer">--:--</span>
+            </div>
+            
+            <div id="ems-active-calls">
+                <!-- Активные вызовы будут появляться здесь -->
+            </div>
+
+            <div class="history-section">
+                <h3><i class="fas fa-history"></i> История вызовов СМП</h3>
+                <div id="ems-history">
+                    <!-- История будет загружаться из localStorage -->
+                </div>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА 3: ЕСС (МЧС) -->
+        <div id="tab-mchs" class="tab-content">
+            <h2><i class="fas fa-fire-extinguisher job-icon"></i> Служба МЧС</h2>
+            <p>Система приема и обработки вызовов экстренной службы МЧС.</p>
+            
+            <div class="timer-info">
+                <i class="fas fa-clock"></i> Следующий вызов МЧС поступит через: <span id="mchs-timer">--:--</span>
+            </div>
+            
+            <div id="mchs-active-calls">
+                <!-- Активные вызовы будут появляться здесь -->
+            </div>
+
+            <div class="history-section">
+                <h3><i class="fas fa-history"></i> История вызовов МЧС</h3>
+                <div id="mchs-history">
+                    <!-- История будет загружаться из localStorage -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="notification" id="notification">
+        Вызов принят и добавлен в историю!
+    </div>
+
+    <script>
+        // Логика переключения вкладок
+        function openTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // БАЗЫ ДАННЫХ ДЛЯ ГЕНЕРАТОРА (JavaScript-объекты)
+        const symptomsDB = {
+            1: "Сильная боль в груди, отдает в руку/челюсть, холодный пот, страх смерти",
+            2: "Внезапная слабость в руке/ноге, асимметрия лица, нарушение речи, головокружение",
+            3: "Затрудненное дыхание, свистящее дыхание, кашель, чувство стеснения в груди",
+            4: "Резкая боль в животе (часто справа внизу), тошнота, рвота, повышение температуры",
+            5: "Очень сильная, приступообразная боль в пояснице, отдает в пах/бедро, беспокойство, кровь в моче",
+            6: "Резкое падение АД, затрудненное дыхание, отек лица/горла, крапивница, зуд после укуса/еды/лекарства",
+            7: "Высокая температура (39-40°C), сильная головная боль, светобоязнь, ригидность затылочных мышц",
+            8: "Сильная боль и деформация конечности после падения/травмы, отек, невозможность движения",
+            9: "Выраженная одышка в покое, хрипы в легких, вынужденное положение (ортопноэ), отеки ног",
+            10: "Резкая головная боль (\"как удар\"), рвота, потеря сознания, ригидность затылочных мышц",
+            11: "Высокое АД (например, 220/120), сильная головная боль, тошнота, рвота, нарушение зрения",
+            12: "Высокий/низкий уровень сахара в крови (измерение глюкометром), спутанность сознания/агрессия/слабость, запах ацетона (при высоком), дрожь/потливость (при низком)",
+            13: "Сильная, пульсирующая головная боль (часто с одной стороны), тошнота, свето-/звукобоязнь",
+            14: "Заложенность носа, чихание, слезотечение, зуд в носу/глазах, кожная сыпь после контакта с аллергеном",
+            15: "Боль/жжение при мочеиспускании, частые позывы, мутная/кровянистая моча, дикомфорт внизу живота",
+            16: "Боль в горле, повышение температуры, насморк, кашель, слабость",
+            17: "Боль, покраснение, отек, возможно гнойное отделяемое из раны, повышение температуры",
+            18: "Боль в верхней части живота (эпигастрии), изжога, тошнота, связь с приемом пищи/голодом",
+            19: "Сильная боль, покраснение, отек, пузыри на коже после контакта с горячим/химикатом/солнцем"
+        };
+
+        const addressesDB = [
+            "ул. Центральная, д. 10",
+            "пр. Победы, д. 25",
+            "ул. Садовая, д. 5",
+            "бульвар Космонавтов, д. 17",
+            "ул. Лесная, д. 33 (возле магазина)",
+            "ш. Энтузиастов, д. 100 (ориентир - АЗС)",
+            "ул. Молодежная, д. 12, кв. 45",
+            "пл. Ленина, д. 1 (центральный вход)"
+        ];
+
+        const namesDB = ["Иван", "Алексей", "Мария", "Екатерина", "Дмитрий", "Анна", "Сергей", "Ольга"];
+        const patronymicsDB = ["Иванович", "Алексеевна", "Петрович", "Сергеевна", "Дмитриевна", "Олегович", "Андреевна"];
+        const reasonsDB = ["ДТП", "Бытовая травма", "Обострение хронического заболевания", "Несчастный случай", "Острая боль"];
+        const jobsDB = ["Слесарь", "Бухгалтер", "Программист", "Пенсионер", "Студент", "Безработный", "Повар", "Водитель"];
+        const fireReasonsDB = [
+            "Короткое замыкание электропроводки",
+            "Неосторожное обращение с огнем (курение)",
+            "Возгорание пищи на плите",
+            "Взрыв бытового газа",
+            "Замыкание в обогревателе",
+            "Поджог",
+            "Возгорание сухой травы",
+            "Неисправность производственного оборудования"
+        ];
+
+        // Таймеры для автоматической генерации
+        let emsTimerInterval;
+        let mchsTimerInterval;
+        let nextEmsCall = 0;
+        let nextMchsCall = 0;
+
+        // ФУНКЦИИ ГЕНЕРАЦИИ СЛУЧАЙНЫХ ДАННЫХ
+        function getRandomItem(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+        
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+        
+        function generatePassport() {
+            return `${getRandomInt(10, 99)} ${getRandomInt(10, 99)} ${getRandomInt(100000, 999999)}`;
+        }
+
+        // ФУНКЦИИ ДЛЯ РАБОТЫ С LOCALSTORAGE
+        function saveToStorage(key, data) {
+            localStorage.setItem(key, JSON.stringify(data));
+        }
+
+        function loadFromStorage(key) {
+            const data = localStorage.getItem(key);
+            return data ? JSON.parse(data) : [];
+        }
+
+        // ГЕНЕРАЦИЯ ВЫЗОВА СМП
+        function generateEMSCall() {
+            const randomSymptomKey = getRandomInt(1, 19);
+            const selectedSymptoms = symptomsDB[randomSymptomKey];
+
+            const call = {
+                id: Date.now(),
+                type: 'ems',
+                address: getRandomItem(addressesDB),
+                symptoms: `[${randomSymptomKey}] ${selectedSymptoms}`,
+                name: getRandomItem(namesDB),
+                patronymic: getRandomItem(patronymicsDB),
+                passport: generatePassport(),
+                reason: getRandomItem(reasonsDB),
+                job: getRandomItem(jobsDB),
+                age: getRandomInt(18, 85),
+                timestamp: new Date().toLocaleString('ru-RU')
+            };
+
+            // Добавляем вызов в активные
+            const activeCalls = loadFromStorage('activeCalls');
+            activeCalls.push(call);
+            saveToStorage('activeCalls', activeCalls);
+
+            // Обновляем отображение
+            displayActiveCalls();
+            
+            // Запускаем таймер для следующего вызова
+            startEMSTimer();
+        }
+
+        // ГЕНЕРАЦИЯ ВЫЗОВА МЧС
+        function generateMCHSCall() {
+            const call = {
+                id: Date.now(),
+                type: 'mchs',
+                address: getRandomItem(addressesDB),
+                reason: getRandomItem(fireReasonsDB),
+                timestamp: new Date().toLocaleString('ru-RU')
+            };
+
+            // Добавляем вызов в активные
+            const activeCalls = loadFromStorage('activeCalls');
+            activeCalls.push(call);
+            saveToStorage('activeCalls', activeCalls);
+
+            // Обновляем отображение
+            displayActiveCalls();
+            
+            // Запускаем таймер для следующего вызова
+            startMCHSTimer();
+        }
+
+        // ОТОБРАЖЕНИЕ АКТИВНЫХ ВЫЗОВОВ
+        function displayActiveCalls() {
+            const activeCalls = loadFromStorage('activeCalls');
+            const emsActiveContainer = document.getElementById('ems-active-calls');
+            const mchsActiveContainer = document.getElementById('mchs-active-calls');
+            
+            // Очищаем контейнеры
+            emsActiveContainer.innerHTML = '';
+            mchsActiveContainer.innerHTML = '';
+            
+            // Заполняем активные вызовы
+            activeCalls.forEach(call => {
+                if (call.type === 'ems') {
+                    const callElement = document.createElement('div');
+                    callElement.className = 'active-call';
+                    callElement.innerHTML = `
+                        <div class="callout-box">
+                            ВНИМАНИЕ! ПОСТУПИЛ ВЫЗОВ СКОРОЙ МЕДИЦИНСКОЙ ПОМОЩИ
+                        </div>
+                        <div class="call-info">
+                            <strong>Адрес вызова:</strong><br>
+                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(call.address)}&zoom=15&size=400x200&maptype=roadmap&markers=color:red%7C${encodeURIComponent(call.address)}&key=YOUR_API_KEY" alt="Карта места вызова" style="max-width: 100%; border-radius: 3px; margin: 5px 0;"><br>
+                            ${call.address}
+                        </div>
+                        <div class="call-info">
+                            <strong>Жалобы:</strong><br>
+                            ${call.symptoms}
+                        </div>
+                        <div class="call-info">
+                            <strong>Информация о пациенте:</strong><br>
+                            Имя: ${call.name}<br>
+                            Отчество: ${call.patronymic}<br>
+                            Номер паспорта: ${call.passport}<br>
+                            Повод к вызову: ${call.reason}<br>
+                            Работа: ${call.job}<br>
+                            Возраст: ${call.age}
+                        </div>
+                        <div class="callout-box">
+                            Не забудь карту вызова СМП
+                        </div>
+                        <button class="btn-accept" onclick="acceptCall(${call.id})">ПРИНЯТЬ ВЫЗОВ</button>
+                    `;
+                    emsActiveContainer.appendChild(callElement);
+                } else if (call.type === 'mchs') {
+                    const callElement = document.createElement('div');
+                    callElement.className = 'active-call';
+                    callElement.innerHTML = `
+                        <div class="callout-box">
+                            ВНИМАНИЕ! ПОСТУПИЛ ВЫЗОВ МЧС
+                        </div>
+                        <div class="call-info">
+                            <strong>Адрес вызова:</strong><br>
+                            <img src="https://maps.googleapis.com/maps/api/staticmap?center=${encodeURIComponent(call.address)}&zoom=15&size=400x200&maptype=roadmap&markers=color:red%7C${encodeURIComponent(call.address)}&key=YOUR_API_KEY" alt="Карта места вызова" style="max-width: 100%; border-radius: 3px; margin: 5px 0;"><br>
+                            ${call.address}
+                        </div>
+                        <div class="call-info">
+                            <strong>Причина вызова:</strong><br>
+                            ${call.reason}
+                        </div>
+                        <button class="btn-accept" onclick="acceptCall(${call.id})">ПРИНЯТЬ ВЫЗОВ</button>
+                    `;
+                    mchsActiveContainer.appendChild(callElement);
+                }
+            });
+            
+            // Если активных вызовов нет, показываем сообщение
+            if (emsActiveContainer.children.length === 0) {
+                emsActiveContainer.innerHTML = '<p>Активных вызовов нет. Ожидайте поступления новых вызовов.</p>';
+            }
+            if (mchsActiveContainer.children.length === 0) {
+                mchsActiveContainer.innerHTML = '<p>Активных вызовов нет. Ожидайте поступления новых вызовов.</p>';
+            }
+        }
+
+        // ОТОБРАЖЕНИЕ ИСТОРИИ ВЫЗОВОВ
+        function displayHistory() {
+            const history = loadFromStorage('callHistory');
+            const emsHistoryContainer = document.getElementById('ems-history');
+            const mchsHistoryContainer = document.getElementById('mchs-history');
+            
+            // Очищаем контейнеры
+            emsHistoryContainer.innerHTML = '';
+            mchsHistoryContainer.innerHTML = '';
+            
+            // Заполняем историю
+            history.forEach(call => {
+                const historyItem = document.createElement('div');
+                historyItem.className = 'history-item';
+                
+                if (call.type === 'ems') {
+                    historyItem.innerHTML = `
+                        <span>[${call.timestamp}] СМП | ${call.reason} | ${call.name} | ${call.address}</span>
+                        <span class="status-badge">Завершен</span>
+                    `;
+                    emsHistoryContainer.appendChild(historyItem);
+                } else if (call.type === 'mchs') {
+                    historyItem.innerHTML = `
+                        <span>[${call.timestamp}] МЧС | ${call.reason} | ${call.address}</span>
+                        <span class="status-badge">Завершен</span>
+                    `;
+                    mchsHistoryContainer.appendChild(historyItem);
+                }
+            });
+            
+            // Если истории нет, показываем сообщение
+            if (emsHistoryContainer.children.length === 0) {
+                emsHistoryContainer.innerHTML = '<div class="history-item">Вызовов еще не было.</div>';
+            }
+            if (mchsHistoryContainer.children.length === 0) {
+                mchsHistoryContainer.innerHTML = '<div class="history-item">Вызовов еще не было.</div>';
+            }
+        }
+
+        // ПРИНЯТИЕ ВЫЗОВА
+        function acceptCall(callId) {
+            const activeCalls = loadFromStorage('activeCalls');
+            const callHistory = loadFromStorage('callHistory');
+            
+            // Находим вызов по ID
+            const callIndex = activeCalls.findIndex(call => call.id === callId);
+            if (callIndex === -1) return;
+            
+            // Переносим вызов в историю
+            const acceptedCall = activeCalls[callIndex];
+            callHistory.push(acceptedCall);
+            
+            // Удаляем вызов из активных
+            activeCalls.splice(callIndex, 1);
+            
+            // Сохраняем изменения
+            saveToStorage('activeCalls', activeCalls);
+            saveToStorage('callHistory', callHistory);
+            
+            // Обновляем отображение
+            displayActiveCalls();
+            displayHistory();
+            
+            // Показываем уведомление
+            showNotification('Вызов принят и добавлен в историю!');
+        }
+
+        // ТАЙМЕРЫ ДЛЯ АВТОМАТИЧЕСКОЙ ГЕНЕРАЦИИ
+        function startEMSTimer() {
+            clearInterval(emsTimerInterval);
+            
+            // Устанавливаем случайное время до следующего вызова (10-15 минут)
+            nextEmsCall = getRandomInt(10, 15) * 60 * 1000;
+            updateTimerDisplay('ems-timer', nextEmsCall);
+            
+            emsTimerInterval = setInterval(() => {
+                nextEmsCall -= 1000;
+                
+                if (nextEmsCall <= 0) {
+                    generateEMSCall();
+                } else {
+                    updateTimerDisplay('ems-timer', nextEmsCall);
+                }
+            }, 1000);
+        }
+
+        function startMCHSTimer() {
+            clearInterval(mchsTimerInterval);
+            
+            // Устанавливаем случайное время до следующего вызова (15-20 минут)
+            nextMchsCall = getRandomInt(15, 20) * 60 * 1000;
+            updateTimerDisplay('mchs-timer', nextMchsCall);
+            
+            mchsTimerInterval = setInterval(() => {
+                nextMchsCall -= 1000;
+                
+                if (nextMchsCall <= 0) {
+                    generateMCHSCall();
+                } else {
+                    updateTimerDisplay('mchs-timer', nextMchsCall);
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay(timerId, milliseconds) {
+            const minutes = Math.floor(milliseconds / 60000);
+            const seconds = Math.floor((milliseconds % 60000) / 1000);
+            document.getElementById(timerId).textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        // ПОКАЗ УВЕДОМЛЕНИЯ
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            notification.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // ИНИЦИАЛИЗАЦИЯ ПРИ ЗАГРУЗКЕ СТРАНИЦЫ
+        function init() {
+            // Инициализируем хранилище, если оно пустое
+            if (!localStorage.getItem('activeCalls')) {
+                saveToStorage('activeCalls', []);
+            }
+            if (!localStorage.getItem('callHistory')) {
+                saveToStorage('callHistory', []);
+            }
+            
+            // Загружаем активные вызовы и историю
+            displayActiveCalls();
+            displayHistory();
+            
+            // Запускаем таймеры, если они еще не запущены
+            if (nextEmsCall <= 0) {
+                startEMSTimer();
+            }
+            if (nextMchsCall <= 0) {
+                startMCHSTimer();
+            }
+            
+            // Генерируем первый вызов при загрузке
+            setTimeout(() => {
+                generateEMSCall();
+                generateMCHSCall();
+            }, 2000);
+        }
+
+        // Запускаем инициализацию при загрузке страницы
+        window.onload = init;
+    </script>
+</body>
+</html>
